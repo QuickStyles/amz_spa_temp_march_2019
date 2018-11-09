@@ -44,6 +44,16 @@ const Product = {
       credentials: "include"
     }).then(res => res.json());
   },
+  create(params) {
+    return fetch(`${BASE_URL}/products`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    }).then(res => res.json());
+  }
 };
 
 const productsView = products =>
@@ -108,5 +118,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetPage = link.dataset.target;
       navigateTo(targetPage);
     }
+  });
+
+  qS("#new-product-form").addEventListener("submit", event => {
+    event.preventDefault();
+     const form = event.currentTarget;
+    const formData = new FormData(form);
+     Product.create({
+      title: formData.get("title"),
+      description: formData.get("description"),
+      price: formData.get("price"),
+    })
+      .then(data => {
+        if (data.errors) {
+          return Promise.reject(data.errors);
+        }
+         qS("#product-show").innerHTML = detailedProductView(data);
+        navigateTo("product-show");
+        form.reset();
+      })
+      .catch(error => {
+        alert(error.join(", "));
+      });
   });
 });

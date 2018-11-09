@@ -24,7 +24,24 @@
     <ul class="product-list"></ul>
   </main>
 
-  <main id="product-new" class="page"></main>
+  <main id="product-new" class="page">
+      <h1>New Product</h1>
+      <form id="new-product-form">
+        <div>
+          <label for="title">Title</label> <br />
+          <input type="text" name="title" id="title" />
+        </div>
+        <div>
+          <label for="descrition">Descripton</label> <br />
+          <textarea name="descrition" id="descrition" cols="60" rows="5"></textarea>
+        </div>
+        <div>
+          <label for="price">Price</label> <br />
+          <input type="number" name="price" id="price" />
+        </div>
+        <input type="submit" value="Create Product" />
+      </form>
+  </main>
   
 </body>
 </html>
