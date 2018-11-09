@@ -69,6 +69,13 @@ const detailedProductView = product => `
   </ul>
 `;
 
+const navigateTo = id => {
+  qSA(".page.active").forEach(node => {
+    node.classList.remove("active");
+  });
+   qS(`#${id}.page`).classList.add("active");
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const productListTag = qS('.product-list');
 
@@ -89,7 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const productId = productLink.dataset.id;
        Product.one(productId).then(product => {
         qS("#product-show").innerHTML = detailedProductView(product);
+        navigateTo("product-show");
       });
+    }
+  });
+
+  qS(".navbar").addEventListener("click", event => {
+    const link = event.target.closest("[data-target]");
+     if (link) {
+      event.preventDefault();
+      const targetPage = link.dataset.target;
+      navigateTo(targetPage);
     }
   });
 });

@@ -1,0 +1,19 @@
+html {
+  font-family: Helvetica, "Roboto Sans", sans-serif;
+}
+ * {
+  font-family: inherit;
+}
+ textarea {
+  border: gainsboro solid thin;
+}
+ .product-list {
+  padding-left: 0;
+  list-style: none;
+}
+ .product-list > li {
+  margin: 0 0 10px 0;
+}
+ main.page:not(.active) {
+  display: none;
+}

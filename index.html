@@ -9,13 +9,22 @@
   <script src="js/main.js"></script>
 </head>
 <body>
-  <h1>Amazon SPA</h1>
+    <header>
+        <nav class="navbar">
+          <a href="/" data-target="welcome">Home</a>
+          <a href="/products/new" data-target="product-new">New Product</a>
+          <a href="/products" data-target="product-index">Products</a>
+        </nav>
+      </header>
+  <main id="welcome" class="page active"><h1>Amazon SPA</h1></main>
 
-  <main id="product-show"></main>
-  
-  <main id="product-index">
+  <main id="product-show" class="page"></main>
+
+  <main id="product-index" class="page">
     <ul class="product-list"></ul>
   </main>
+
+  <main id="product-new" class="page"></main>
   
 </body>
 </html>
