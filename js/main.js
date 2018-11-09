@@ -39,6 +39,11 @@ const Product = {
       credentials: 'include',
     }).then(res => res.json());
   },
+  one(id) {
+    return fetch(`${BASE_URL}/products/${id}`, {
+      credentials: "include"
+    }).then(res => res.json());
+  },
 };
 
 const productsView = products =>
@@ -54,6 +59,16 @@ const productsView = products =>
       return li;
     });
 
+const detailedProductView = product => `
+  <h1>${product.title}</h1>
+  <p>${product.description}</p>
+  <small>Seller: ${product.seller.full_name}</small>
+  <h3>Review</h3>
+  <ul>
+    ${product.reviews.map(r => `<li>Rating: ${r.rating} ${r.body}</li>`).join("")}
+  </ul>
+`;
+
 document.addEventListener('DOMContentLoaded', () => {
   const productListTag = qS('.product-list');
 
@@ -61,5 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
     productsView(products).forEach(
       productLi => productListTag.appendChild(productLi)
     );
+  });
+
+  qS("#product-index").addEventListener("click", event => {
+    const productLink = event.target.closest(".product-link");
+     if (productLink) {
+      event.preventDefault();
+       // Use the .dataset property nodes to easily retrieve
+      // custome attributes beginning in data-.
+       // The line below assigns the value of the attribute "data-id"
+      // to "productId"
+      const productId = productLink.dataset.id;
+       Product.one(productId).then(product => {
+        qS("#product-show").innerHTML = detailedProductView(product);
+      });
+    }
   });
 });
