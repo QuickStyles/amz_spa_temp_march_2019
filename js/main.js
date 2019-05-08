@@ -1,14 +1,14 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const productListTag = querySelector('.product-list');
 
+  // initializes app by grabing all products and appending them to the DOM.
   Product.all().then(products => {
     productsView(products).forEach(
       productLi => productListTag.appendChild(productLi)
     );
   });
 
+  // respond to items in the list being clicked
   querySelector("#product-index").addEventListener("click", event => {
     const productLink = event.target.closest(".product-link");
      if (productLink) {
@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // navigation logic
   querySelector(".navbar").addEventListener("click", event => {
     const link = event.target.closest("[data-target]");
      if (link) {
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // new product form logic
   querySelector("#new-product-form").addEventListener("submit", event => {
     event.preventDefault();
      const form = event.currentTarget;
